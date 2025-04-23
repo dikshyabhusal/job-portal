@@ -54,6 +54,31 @@
                     <input type="password" name="password_confirmation" required 
                         class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
                 </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-semibold mb-1">Gender</label>
+                    <select name="gender" required
+                        class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
+                        <option value="">Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-sm font-semibold mb-1">Skills (Optional)</label>
+                    <input type="text" name="skills"
+                        placeholder="E.g. Laravel, React, Python"
+                        class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
+                </div>
+                
+                <div class="mb-6">
+                    <label class="block text-sm font-semibold mb-1">Desired Industry (Optional)</label>
+                    <input type="text" name="desired_industry"
+                        placeholder="E.g. IT, Education, Health"
+                        class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
+                </div>
+                
 
                 <button type="submit"
                     class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-green-600 transition duration-300 font-semibold">

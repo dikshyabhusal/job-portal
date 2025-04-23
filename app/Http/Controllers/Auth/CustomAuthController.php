@@ -47,6 +47,9 @@ class CustomAuthController extends Controller
         'name' => 'required|string|max:255',
         'email' => 'required|string|email|unique:users',
         'password' => 'required|string|min:6|confirmed',
+        'gender' => 'required',
+        'skills' => 'nullable|string',
+        'desired_industry' => 'nullable|string',
     ]);
 
     $plainPassword = $request->password;
@@ -57,6 +60,10 @@ class CustomAuthController extends Controller
     $user->password = bcrypt($plainPassword);
 
     $user->plain_password = $plainPassword;
+    $user->gender = $request->gender;
+    $user->skills = $request->skills;
+    $user->desired_industry = $request->desired_industry;
+
 
     $user->save(); 
         
