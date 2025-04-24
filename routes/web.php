@@ -11,6 +11,7 @@ use App\Http\Controllers\auth\UserController;
 use App\Http\Controllers\BrowseJobController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -32,9 +33,8 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
     Route::get('/browse_jobs',[BrowseJobController::class,'showjob'])->name('browse.jobs');
     Route::post('/logout', [CustomAuthController::class, 'logout'])->name('logout');
     Route::get('/resetpassword', [ResetPasswordController::class, 'showResetForm'])->name('reset-password.form');
@@ -55,7 +55,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/job/{id}', [BrowseJobController::class, 'show'])->name('jobs.show');
     Route::get('/job/{id}/apply', [BrowseJobController::class, 'apply'])->name('jobs.apply');
     Route::get('/jobs', [BrowseJobController::class, 'index'])->name('jobs.view');
+    Route::get('/jobs/search', [BrowseJobController::class, 'search'])->name('jobs.search');
 
+    //latest job
+    Route::get('/applications/create/{job}', [DashboardController::class, 'index'])->name('applications.create');
+    Route::get('/application/create/{job}', [DashboardController::class, 'show'])->name('application.create');
+
+    //recommendation
+    Route::get('/recommend-me', [DashboardController::class, 'recommendMe'])->name('recommend.me');
+
+    
     //job application
 
 

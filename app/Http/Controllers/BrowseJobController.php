@@ -55,4 +55,26 @@ class BrowseJobController extends Controller
     return view('job.show', compact('job'));
 }
 
+public function search(Request $request)
+{
+    $query = $request->input('query');
+    $location = $request->input('location');
+
+    $jobs = Job::query()
+        ->when($query, function ($q) use ($query) {
+            $q->where('title', 'like', "%{$query}%")
+            //   ->orWhere('keyskills', 'like', "%{$query}%")
+              ->orWhere('company', 'like', "%{$query}%");
+        })
+        ->when($location, function ($q) use ($location) {
+            $q->where('location', 'like', "%{$location}%");
+        })
+        ->get();
+
+    return view('job.search-results', compact('jobs'));
+}
+
+
+
+
 }

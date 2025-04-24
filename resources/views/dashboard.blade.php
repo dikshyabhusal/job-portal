@@ -3,51 +3,74 @@
 @section('title', 'Dashboard')
 
 @section('content')
-    <!-- Hero Section -->
+
+
+    
+<form action="{{ route('jobs.search') }}" method="GET" class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-4">
+    <!-- Job Keyword Input -->
+    <input 
+        type="text" 
+        name="query"
+        placeholder="Search Job by Title, Keyskill, Company" 
+        class="w-full md:w-2/5 px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300" 
+    />
+
+    <!-- Location Input -->
+    <input 
+        type="text" 
+        name="location"
+        placeholder="Location" 
+        class="w-full md:w-2/5 px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300" 
+    />
+
+    <!-- Search Button -->
+    <button 
+        type="submit"
+        class="bg-orange-600 text-white font-semibold px-6 py-2 rounded hover:bg-orange-700 transition duration-300">
+        SEARCH JOB
+    </button>
+</form>
+
+
+<!-- Hero Section -->
     <div class="bg-blue-50 p-8 rounded-lg mb-10 text-center">
         <h1 class="text-4xl font-bold text-blue-800 mb-4">Welcome to Job Portal, {{ Auth::user()->name }}!</h1>
         <p class="text-gray-600 mb-6">Find your dream job, apply easily, and boost your career.</p>
-        <a href="{{ route('browse.jobs') }}" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">Browse Jobs</a>
+        <a href="{{ route('browse.jobs') }}" class="bg-orange-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">Browse Jobs</a>
     </div>
 
-    <!-- Featured Jobs -->
+    
+
+    {{-- latest job --}}
     <div class="mb-10">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-6">🔥 Featured Jobs</h2>
+        <h2 class="text-2xl font-semibold text-gray-800 mb-6">🔥 Features Jobs</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
-                <h3 class="text-xl font-bold text-gray-800 mb-2">Frontend Developer</h3>
-                <p class="text-gray-600 mb-3">Tech Solutions Pvt. Ltd</p>
-                <a href="#" class="text-blue-600 font-medium hover:underline">Apply Now</a>
-            </div>
-            <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
-                <h3 class="text-xl font-bold text-gray-800 mb-2">Digital Marketing Officer</h3>
-                <p class="text-gray-600 mb-3">Creative Minds Inc.</p>
-                <a href="#" class="text-blue-600 font-medium hover:underline">Apply Now</a>
-            </div>
-            <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
-                <h3 class="text-xl font-bold text-gray-800 mb-2">Laravel Backend Developer</h3>
-                <p class="text-gray-600 mb-3">CodeBase Nepal</p>
-                <a href="#" class="text-blue-600 font-medium hover:underline">Apply Now</a>
-            </div>
+            @forelse($jobs as $job)
+                <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">{{ $job->title }}</h3>
+                    <p class="text-gray-600 mb-3">{{ $job->company }}</p>
+                    <a href="{{ route('applications.create', $job->id) }}" class="text-blue-600 font-medium hover:underline">Apply Now</a>
+                </div>
+            @empty
+                <p class="text-gray-600">No latest jobs available at the moment.</p>
+            @endforelse
         </div>
     </div>
+    
 
     <!-- Latest Jobs -->
     <div class="mb-10">
         <h2 class="text-2xl font-semibold text-gray-800 mb-6">🆕 Latest Jobs</h2>
         <ul class="space-y-4">
+            @forelse($jobs as $job)
             <li class="bg-white p-4 rounded shadow flex justify-between items-center">
                 <span>UI/UX Designer at Pixel Studio</span>
-                <a href="#" class="text-blue-600 hover:underline">Apply</a>
+                <a href="{{ route('application.create', $job->id) }}" class="text-blue-600 hover:underline">Apply</a>
             </li>
-            <li class="bg-white p-4 rounded shadow flex justify-between items-center">
-                <span>WordPress Developer at WebTech</span>
-                <a href="#" class="text-blue-600 hover:underline">Apply</a>
-            </li>
-            <li class="bg-white p-4 rounded shadow flex justify-between items-center">
-                <span>Data Analyst at Insight Analytics</span>
-                <a href="#" class="text-blue-600 hover:underline">Apply</a>
-            </li>
+            @empty
+            <p class="text-gray-600">No latest jobs available at the moment.</p>
+            @endforelse
+            
         </ul>
     </div>
 

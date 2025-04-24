@@ -39,7 +39,6 @@
                         If you forget your password, click the 'Forgot Password?' link on the login page, and you'll receive an email to reset your password.
                     </div>
                 </div>
-
                 <!-- FAQ Item -->
                 <div class="bg-gray-50 p-4 rounded-lg shadow hover:shadow-md transition">
                     <button onclick="toggleFAQ('faq3')" 
