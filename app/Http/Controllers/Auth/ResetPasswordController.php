@@ -27,6 +27,9 @@ class ResetPasswordController extends Controller
     public function showResetForm(){
         return view('auth.reset-link');
     }
+    public function adminshowResetForm(){
+        return view('auth.admin_reset-link');
+    }
     public function resetPassword(Request $request)
     {
         $request->validate([

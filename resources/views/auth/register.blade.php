@@ -78,6 +78,16 @@
                         placeholder="E.g. IT, Education, Health"
                         class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
                 </div>
+
+                <div class="mb-4">
+                    
+                    <label for="role" class="block text-gray-700 font-semibold">Select Role</label>
+                    <select name="role" id="role" class="w-full px-4 py-2 mt-2 border rounded-md">
+                        <option value="job_seeker">Job Seeker</option>
+                        <option value="employer">Employer</option>
+                    </select>
+                </div>
+                
                 
 
                 <button type="submit"

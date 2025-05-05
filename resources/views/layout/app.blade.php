@@ -27,39 +27,68 @@
 </head>
 <body class="bg-gray-100">
     <!-- Navbar -->
-    <nav class="bg-white shadow p-4 flex justify-between items-center">
-        <div class="text-2xl font-bold text-blue-700 brand-font">Job <span class="text-orange-600">Portal</span></div>
-        <div class="flex items-center space-x-6">
-            <a href="{{ route('dashboard') }}" class="text-gray-700 hover:text-blue-600 font-medium">Home</a>
-            <a href="/about-us" class="text-gray-700 hover:text-blue-600 font-medium">About Us</a>
-            <a href="{{ route('browse.jobs') }}" class="text-gray-700 hover:text-blue-600 font-medium">Browse Jobs</a>
-            <a href="{{ route('post.job') }}" class="text-gray-700 hover:text-blue-600 font-medium">Post Job</a>
-            <a href="{{ route('jobs.view') }}" class="text-gray-700 hover:text-blue-600 font-medium">Show Job</a>
-            <a href="{{ route('applications.index') }}" class="text-gray-700 hover:text-blue-600 font-medium">View All Applications</a>
-            <a href="{{ route('applications.my') }}" class="text-gray-700 hover:text-blue-600 font-medium">My Job Applications</a>
-            <a href="{{ route('help') }}" class="text-gray-700 hover:text-blue-600 font-medium">FAQ</a>
-            <a href="{{ route('contact.form') }}" class="text-gray-700 hover:text-blue-600 font-medium">Contact Us</a>
-            <a href="{{ route('recommend.me') }}" class="text-gray-700 hover:text-blue-600 font-medium">Recommend Me</a>
-            <!-- Profile dropdown -->
-            <div class="relative">
-                <button id="dropdownButton" class="flex items-center space-x-2 bg-gray-200 px-3 py-2 rounded-full hover:bg-gray-300 focus:outline-none transition">
-                    <span class="text-gray-800 font-medium">{{ Auth::user()->name }}</span>
-                    <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                    </svg>
-                </button>
-                <!-- Dropdown menu -->
-                <div id="profileDropdown" class="absolute right-0 mt-2 w-52 bg-white rounded-lg shadow-lg hidden z-20 transition-all duration-300">
-                    <a href="{{ route('profile.edit') }}" class="block px-4 py-3 text-gray-700 hover:bg-blue-50">Edit Profile</a>
-                    <a href="{{ route('reset-password.form') }}" class="block px-4 py-3 text-gray-700 hover:bg-blue-50">Reset Password</a>
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit" class="w-full text-left px-4 py-3 text-red-600 hover:bg-red-50">Logout</button>
-                    </form>
-                </div>
+    <!-- Navbar -->
+<nav class="bg-white shadow-md px-6 py-4 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <!-- Logo -->
+        <a href="{{ route('dashboard') }}" class="text-3xl font-bold text-blue-700 brand-font">
+            Job <span class="text-orange-600">Portal</span>
+        </a>
+
+        <!-- Navigation Links -->
+        <div class="hidden md:flex items-center space-x-6">
+            @if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('job_seeker') || Auth::user()->hasRole('employer'))
+                <a href="{{ route('dashboard') }}" class="nav-link">Home</a>
+                <a href="/about-us" class="nav-link">About Us</a>
+                <a href="{{ route('browse.jobs') }}" class="nav-link">Browse Jobs</a>
+                <a href="{{ route('help') }}" class="nav-link">FAQ</a>
+                <a href="{{ route('contact.form') }}" class="nav-link">Contact Us</a>
+            @endif
+
+            @if(Auth::user()->hasRole('admin'))
+                <a href="{{ route('post.job') }}" class="nav-link">Post Job</a>
+                <a href="{{ route('jobs.view') }}" class="nav-link">Show Job</a>
+                <a href="{{ route('applications.index') }}" class="nav-link">View All Applications</a>
+                <a href="{{ route('applications.my') }}" class="nav-link">My Job Applications</a>
+                <a href="{{ route('recommend.me') }}" class="nav-link">Recommend Me</a>
+                <a href="{{ route('admin.user.roles') }}" class="nav-link">Permissions</a>
+            @endif
+
+            @if(Auth::user()->hasRole('employer'))
+                <a href="{{ route('jobs.view') }}" class="nav-link">Show Job</a>
+                <a href="{{ route('post.job') }}" class="nav-link">Post Job</a>
+                <a href="{{ route('applications.index') }}" class="nav-link">View Applications</a>
+            @endif
+
+            @if(Auth::user()->hasRole('job_seeker'))
+                <a href="{{ route('applications.index') }}" class="nav-link">All Applications</a>
+                <a href="{{ route('jobs.view') }}" class="nav-link">Show Job</a>
+                <a href="{{ route('applications.my') }}" class="nav-link">My Applications</a>
+                <a href="{{ route('recommend.me') }}" class="nav-link">Recommend Me</a>
+            @endif
+        </div>
+
+        <!-- Profile Dropdown -->
+        <div class="relative">
+            <button id="dropdownButton" class="flex items-center bg-blue-100 hover:bg-blue-200 text-blue-900 px-4 py-2 rounded-full transition">
+                <span class="mr-2 font-semibold">{{ Auth::user()->name }}</span>
+                <svg class="w-5 h-5 text-blue-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+
+            <div id="profileDropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden z-50">
+                <a href="{{ route('profile.edit') }}" class="block px-4 py-3 text-gray-700 hover:bg-gray-100">Edit Profile</a>
+                <a href="{{ route('reset-password.form') }}" class="block px-4 py-3 text-gray-700 hover:bg-gray-100">Reset Password</a>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="w-full text-left px-4 py-3 text-red-600 hover:bg-red-100">Logout</button>
+                </form>
             </div>
         </div>
-    </nav>
+    </div>
+</nav>
+
 
     <!-- Page Content -->
     <div class="p-8">

@@ -12,16 +12,9 @@
         type="text" 
         name="query"
         placeholder="Search Job by Title, Keyskill, Company" 
-        class="w-full md:w-2/5 px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300" 
+        class="w-full md:w-4/5 px-7 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300" 
     />
 
-    <!-- Location Input -->
-    <input 
-        type="text" 
-        name="location"
-        placeholder="Location" 
-        class="w-full md:w-2/5 px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300" 
-    />
 
     <!-- Search Button -->
     <button 
@@ -36,12 +29,25 @@
     <div class="bg-blue-50 p-8 rounded-lg mb-10 text-center">
         <h1 class="text-4xl font-bold text-blue-800 mb-4">Welcome to Job Portal, {{ Auth::user()->name }}!</h1>
         <p class="text-gray-600 mb-6">Find your dream job, apply easily, and boost your career.</p>
-        <a href="{{ route('browse.jobs') }}" class="bg-orange-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">Browse Jobs</a>
+        <!-- Role Based Dashboard Links -->
+        <div class="mt-6">
+            @role('admin')
+                <a href="/admin/dashboard" ></a>
+            @endrole
+
+            @role('employer')
+                <a href="/employer/dashboard"></a>
+            @endrole
+
+            @role('job_seeker')
+                <a href="/job-seeker/dashboard" ></a>
+            @endrole
+        </div>
+    <a href="{{ route('browse.jobs') }}" class="bg-orange-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">Browse Jobs</a>
+        
     </div>
 
-    
-
-    {{-- latest job --}}
+    {{-- feature job --}}
     <div class="mb-10">
         <h2 class="text-2xl font-semibold text-gray-800 mb-6">🔥 Features Jobs</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -49,7 +55,7 @@
                 <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
                     <h3 class="text-xl font-bold text-gray-800 mb-2">{{ $job->title }}</h3>
                     <p class="text-gray-600 mb-3">{{ $job->company }}</p>
-                    <a href="{{ route('applications.create', $job->id) }}" class="text-blue-600 font-medium hover:underline">Apply Now</a>
+                    <a href="{{ route('applications.feature', $job->id) }}" class="text-blue-600 font-medium hover:underline">Apply Now</a>
                 </div>
             @empty
                 <p class="text-gray-600">No latest jobs available at the moment.</p>
@@ -64,8 +70,8 @@
         <ul class="space-y-4">
             @forelse($jobs as $job)
             <li class="bg-white p-4 rounded shadow flex justify-between items-center">
-                <span>UI/UX Designer at Pixel Studio</span>
-                <a href="{{ route('application.create', $job->id) }}" class="text-blue-600 hover:underline">Apply</a>
+                <span>{{ $job->title }} at {{ $job->company }}</span>
+                <a href="{{ route('application.latest', $job->id) }}" class="text-blue-600 hover:underline">Apply</a>
             </li>
             @empty
             <p class="text-gray-600">No latest jobs available at the moment.</p>

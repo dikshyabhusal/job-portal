@@ -14,6 +14,39 @@ class UserController extends Controller
     {
         return view('profile.edit', ['user' => Auth::user()]);
     }
+    public function admineditProfile()
+    {
+        return view('admin.edit', ['user' => Auth::user()]);
+    }
+
+    public function adminupdateProfile(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . Auth::id(),
+            'profile_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $user = Auth::user();
+        $user->name = $request->name;
+        $user->email = $request->email;
+
+        // Handle profile photo upload
+        if ($request->hasFile('profile_photo')) {
+            // Delete the old photo if exists
+            if ($user->profile_photo && Storage::exists($user->profile_photo)) {
+                Storage::delete($user->profile_photo);
+            }
+
+            // Store the new profile photo
+            $path = $request->file('profile_photo')->store('profile_photos', 'public');
+            $user->profile_photo = $path;
+        }
+
+        $user->save();
+
+        return redirect()->route('edit.profile')->with('success', 'Profile updated successfully!');
+    }
 
     // Update profile data
     public function updateProfile(Request $request)

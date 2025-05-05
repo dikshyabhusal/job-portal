@@ -19,9 +19,22 @@ class PasswordResetController extends Controller
     return redirect()->route('user.enter-verification-code')->with('message', 'Verification code sent to your email.');
 }
 
+public function adminsendVerificationCode()
+{
+    $user = auth()->user();
+    $code = rand(100000, 999999); // 6 digit code
+    $user->verification_code = $code;
+    $user->save(); // Observer triggers here
+    return redirect()->route('user.adminenter-verification-code')->with('message', 'Verification code sent to your email.');
+}
+
 public function showVerificationForm()
 {
     return view('auth.verify_token');
+}
+public function adminshowVerificationForm()
+{
+    return view('auth.adminverify_token');
 }
 
 
@@ -47,6 +60,26 @@ public function updatePassword(Request $request)
     $user->save();
 
     return redirect()->route('dashboard')->with('message', 'Password successfully updated.');
+}
+
+public function adminupdatePassword(Request $request)
+{
+    $request->validate([
+        'verification_code' => 'required',
+        'password' => 'required|confirmed|min:6',
+    ]);
+
+    $user = auth()->user();
+
+    if ($user->verification_code !== $request->verification_code) {
+        return back()->withErrors(['verification_code' => 'Invalid verification code.']);
+    }
+
+    $user->password = Hash::make($request->password);
+    $user->verification_code = null; // clear code
+    $user->save();
+
+    return redirect()->route('admin.dashboard')->with('message', 'Password successfully updated.');
 }
 
 public function verifyCode(Request $request)

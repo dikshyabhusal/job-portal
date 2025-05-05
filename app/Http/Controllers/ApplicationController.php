@@ -38,6 +38,11 @@ class ApplicationController extends Controller
             $applications = Application::with('job')->latest()->get();
             return view('applications.index', compact('applications'));
         }
+        public function admin()
+        {
+            $applications = Application::with('job')->latest()->get();
+            return view('admin.index', compact('applications'));
+        }
 
         public function myApplications()
         {
