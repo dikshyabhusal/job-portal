@@ -145,6 +145,13 @@ Route::middleware(['auth', 'permission:jobs search'])->group(function () {
     Route::get('/jobs/search', [BrowseJobController::class, 'search'])->name('jobs.search');
     });
 
+    Route::post('/applications/{id}/accept', [ApplicationController::class, 'accept'])->name('applications.accept');
+    Route::post('/applications/{id}/reject', [ApplicationController::class, 'reject'])->name('applications.reject');
+    Route::get('/profile/view', [UserController::class, 'viewProfile'])->name('profile.view');
+    Route::get('/privacy-policy', function () {
+        return view('policy.privacy');
+    })->name('privacy.policy');
+
 
 
 

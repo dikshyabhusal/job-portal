@@ -55,7 +55,7 @@
                 <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
                     <h3 class="text-xl font-bold text-gray-800 mb-2">{{ $job->title }}</h3>
                     <p class="text-gray-600 mb-3">{{ $job->company }}</p>
-                    <a href="{{ route('applications.feature', $job->id) }}" class="text-blue-600 font-medium hover:underline">Apply Now</a>
+                    <a href="{{ route('applications.create', $job->id) }}" class="text-blue-600 font-medium hover:underline">Apply Now</a>
                 </div>
             @empty
                 <p class="text-gray-600">No latest jobs available at the moment.</p>
@@ -71,7 +71,7 @@
             @forelse($jobs as $job)
             <li class="bg-white p-4 rounded shadow flex justify-between items-center">
                 <span>{{ $job->title }} at {{ $job->company }}</span>
-                <a href="{{ route('application.latest', $job->id) }}" class="text-blue-600 hover:underline">Apply</a>
+                <a href="{{ route('applications.create', $job->id) }}" class="text-blue-600 hover:underline">Apply</a>
             </li>
             @empty
             <p class="text-gray-600">No latest jobs available at the moment.</p>

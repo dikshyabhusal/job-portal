@@ -78,7 +78,8 @@
             </button>
 
             <div id="profileDropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden z-50">
-                <a href="{{ route('profile.edit') }}" class="block px-4 py-3 text-gray-700 hover:bg-gray-100">Edit Profile</a>
+                <a href="{{ route('profile.view') }}" class="block px-4 py-3 text-gray-700 hover:bg-gray-100">View Profile</a>
+                {{-- <a href="{{ route('profile.edit') }}" class="block px-4 py-3 text-gray-700 hover:bg-gray-100">Edit Profile</a> --}}
                 <a href="{{ route('reset-password.form') }}" class="block px-4 py-3 text-gray-700 hover:bg-gray-100">Reset Password</a>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
@@ -101,9 +102,9 @@
             </div>
     
             <div class="flex space-x-6">
-                <a href="#" class="text-gray-500 hover:text-blue-600 transition">About Us</a>
-                <a href="#" class="text-gray-500 hover:text-blue-600 transition">Contact</a>
-                <a href="#" class="text-gray-500 hover:text-blue-600 transition">Privacy Policy</a>
+                <a href="/about-us" class="text-gray-500 hover:text-blue-600 transition">About Us</a>
+                <a href="{{ route('contact.form') }}" class="text-gray-500 hover:text-blue-600 transition">Contact</a>
+                <a href="{{ route('privacy.policy')}}" class="text-gray-500 hover:text-blue-600 transition">Privacy Policy</a>
             </div>
         </div>
     </footer>
