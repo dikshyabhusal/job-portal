@@ -1,101 +1,118 @@
 @extends('layout.app')
-
-@section('title', 'Dashboard')
+@section('title', 'Find Your Dream Job')
 
 @section('content')
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
-
-    
-<form action="{{ route('jobs.search') }}" method="GET" class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-4">
-    <!-- Job Keyword Input -->
-    <input 
-        type="text" 
-        name="query"
-        placeholder="Search Job by Title, Keyskill, Company" 
-        class="w-full md:w-4/5 px-7 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300" 
-    />
-
-
-    <!-- Search Button -->
-    <button 
-        type="submit"
-        class="bg-orange-600 text-white font-semibold px-6 py-2 rounded hover:bg-orange-700 transition duration-300">
-        SEARCH JOB
-    </button>
-</form>
-
-
-<!-- Hero Section -->
-    <div class="bg-blue-50 p-8 rounded-lg mb-10 text-center">
-        <h1 class="text-4xl font-bold text-blue-800 mb-4">Welcome to Job Portal, {{ Auth::user()->name }}!</h1>
-        <p class="text-gray-600 mb-6">Find your dream job, apply easily, and boost your career.</p>
-        <!-- Role Based Dashboard Links -->
-        <div class="mt-6">
-            @role('admin')
-                <a href="/admin/dashboard" ></a>
-            @endrole
-
-            @role('employer')
-                <a href="/employer/dashboard"></a>
-            @endrole
-
-            @role('job_seeker')
-                <a href="/job-seeker/dashboard" ></a>
-            @endrole
-        </div>
-    <a href="{{ route('browse.jobs') }}" class="bg-orange-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">Browse Jobs</a>
-        
+{{-- Hero Section --}}
+<section class="relative bg-gradient-to-r from-blue-700 via-blue-500 to-indigo-600 text-white py-24">
+    <div class="max-w-6xl mx-auto px-6 text-center" data-aos="zoom-in">
+        <h1 class="text-4xl md:text-6xl font-bold mb-4">Discover Your Perfect Job</h1>
+        <p class="text-xl mb-8">Search thousands of jobs from top companies. Apply now and take the next step in your career.</p>
+        <form action="{{ route('jobs.search') }}" method="GET" class="flex flex-col md:flex-row items-center justify-center gap-4">
+            <input type="text" name="query" placeholder="Search job by title, skill or company" class="px-6 py-3 rounded w-full md:w-2/3 text-gray-800" />
+            <button class="bg-orange-500 hover:bg-orange-600 px-6 py-3 rounded text-white font-semibold">Search</button>
+        </form>
     </div>
+</section>
 
-    {{-- feature job --}}
-    <div class="mb-10">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-6">🔥 Features Jobs</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            @forelse($jobs as $job)
-                <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">{{ $job->title }}</h3>
-                    <p class="text-gray-600 mb-3">{{ $job->company }}</p>
-                    <a href="{{ route('applications.create', $job->id) }}" class="text-blue-600 font-medium hover:underline">Apply Now</a>
+{{-- Categories --}}
+{{-- <section class="py-16 bg-gray-100">
+    <div class="max-w-6xl mx-auto px-6">
+        <h2 class="text-3xl font-bold mb-10 text-center" data-aos="fade-up">Browse Job Categories</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+            @php
+                $categories = ['IT & Tech', 'Design', 'Marketing', 'Finance', 'Health', 'Education'];
+            @endphp
+            @foreach($categories as $category)
+                <div class="bg-white p-4 rounded shadow hover:shadow-md transition text-center" data-aos="fade-up">
+                    <img src="/images/icons/{{ strtolower(str_replace(' ', '-', $category)) }}.svg" class="w-12 h-12 mx-auto mb-3" />
+                    <span class="text-gray-800 font-medium">{{ $category }}</span>
                 </div>
-            @empty
-                <p class="text-gray-600">No latest jobs available at the moment.</p>
-            @endforelse
+            @endforeach
         </div>
     </div>
-    
+</section> --}}
 
-    <!-- Latest Jobs -->
-    <div class="mb-10">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-6">🆕 Latest Jobs</h2>
-        <ul class="space-y-4">
-            @forelse($jobs as $job)
-            <li class="bg-white p-4 rounded shadow flex justify-between items-center">
-                <span>{{ $job->title }} at {{ $job->company }}</span>
-                <a href="{{ route('applications.create', $job->id) }}" class="text-blue-600 hover:underline">Apply</a>
-            </li>
-            @empty
-            <p class="text-gray-600">No latest jobs available at the moment.</p>
-            @endforelse
+{{-- Main Section --}}
+<section class="max-w-6xl mx-auto px-6 py-16 grid grid-cols-1 lg:grid-cols-4 gap-10">
+    <div class="lg:col-span-3">
+        {{-- Featured Jobs --}}
+        <div class="mb-12" data-aos="fade-up">
+            <h2 class="text-2xl font-bold mb-6">🔥 Featured Jobs</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                @foreach($jobs as $job)
+                    <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition" data-aos="zoom-in">
+                        <h3 class="font-bold text-lg">{{ $job->title }}</h3>
+                        <p class="text-gray-600">{{ $job->company }}</p>
+                        <p class="text-sm text-gray-500">{{ $job->location }}</p>
+                        <a href="{{ route('applications.create', $job->id) }}" class="block mt-4 text-blue-600 font-semibold hover:underline">Apply Now</a>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+
+        {{-- Latest Jobs List --}}
+        <div data-aos="fade-up">
+            <h2 class="text-2xl font-bold mb-6">🆕 Latest Jobs</h2>
+            <ul class="space-y-4">
+                @foreach($jobs as $job)
+                    <li class="bg-gray-50 p-4 rounded flex justify-between items-center">
+                        <span>{{ $job->title }} @ {{ $job->company }}</span>
+                        <a href="{{ route('applications.create', $job->id) }}" class="text-orange-500 hover:underline">Apply</a>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
+
+    {{-- Sidebar Banner Section --}}
+    <aside data-aos="fade-left">
+        <h3 class="text-lg font-semibold mb-4">📢 Sponsored</h3>
+        <div class="space-y-4">
+            <img src="{{ asset('storage/ads/ad1.jpg') }}" class="rounded shadow hover:scale-105 transition" />
+            <img src="{{ asset('storage/ads/ad2.jpg') }}" class="rounded shadow hover:scale-105 transition" />
+            <img src="{{ asset('storage/ads/ad3.jpg') }}" class="rounded shadow hover:scale-105 transition" />
+            <img src="{{ asset('storage/ads/ad4.jpg') }}" class="rounded shadow hover:scale-105 transition" />
+            <img src="{{ asset('storage/ads/ad5.jpg') }}" class="rounded shadow hover:scale-105 transition" />
+            <img src="{{ asset('storage/ads/ad6.jpg') }}" class="rounded shadow hover:scale-105 transition" />
             
-        </ul>
-    </div>
+        </div>
+    </aside>
+</section>
 
-    <!-- Categories -->
-    <div class="mb-10">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-6">📁 Browse by Category</h2>
-        <div class="flex flex-wrap gap-4">
-            <a href="#" class="bg-blue-100 text-blue-800 px-4 py-2 rounded-full hover:bg-blue-200 transition">IT & Software</a>
-            <a href="#" class="bg-blue-100 text-blue-800 px-4 py-2 rounded-full hover:bg-blue-200 transition">Design & Creative</a>
-            <a href="#" class="bg-blue-100 text-blue-800 px-4 py-2 rounded-full hover:bg-blue-200 transition">Sales & Marketing</a>
-            <a href="#" class="bg-blue-100 text-blue-800 px-4 py-2 rounded-full hover:bg-blue-200 transition">Finance</a>
-            <a href="#" class="bg-blue-100 text-blue-800 px-4 py-2 rounded-full hover:bg-blue-200 transition">Education</a>
+{{-- Trusted Companies Section --}}
+<section class="bg-white py-16">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+        <h2 class="text-xl font-semibold mb-6" data-aos="fade-up">Trusted by Top Companies</h2>
+        <div class="flex flex-wrap justify-center gap-6" data-aos="fade-up">
+            <img src="{{ asset('storage/logos/logo1.jpg') }}" class="h-10" />
+            <img src="{{ asset('storage/logos/logo2.jpg') }}" class="h-10" />
+            <img src="{{ asset('storage/logos/logo3.jpg') }}" class="h-10" />
+            <img src="{{ asset('storage/logos/logo4.jpg') }}" class="h-10" />
         </div>
     </div>
+</section>
 
-    <!-- Call to Action -->
-    <div class="bg-blue-600 p-8 rounded-lg text-center text-white">
-        <h2 class="text-3xl font-bold mb-4">Ready to apply?</h2>
-        <p class="mb-6">Create your profile, upload your resume, and get hired by top companies!</p>
-        <a href="{{ route('browse.jobs') }}" class="bg-white text-blue-600 font-semibold px-6 py-3 rounded-lg hover:bg-gray-100 transition">Get Started</a>
+
+
+{{-- Footer --}}
+<footer class="bg-gray-800 text-white py-10">
+    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-6">
+        <div>
+            <h3 class="font-bold text-lg mb-3">About Us</h3>
+            <p class="text-gray-300">Your trusted job platform to find meaningful opportunities.</p>
+        </div>
+        <div>
+            <h3 class="font-bold text-lg mb-3">Subscribe for Updates</h3>
+            <form class="flex gap-2">
+                <input type="email" placeholder="Enter your email" class="px-4 py-2 rounded text-gray-800 w-full" />
+                <button class="bg-orange-500 px-4 py-2 rounded hover:bg-orange-600">Subscribe</button>
+            </form>
+        </div>
     </div>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>AOS.init();</script>
 @endsection

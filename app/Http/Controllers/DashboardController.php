@@ -20,18 +20,37 @@ public function show()
     return view('dashboard', compact('jobs'));
 }
 
-public function recommendMe()
+public function recommendMe(Request $request)
 {
-    $user = Auth::user();
+    $query = Job::query();
 
-    // Example logic: match jobs based on skills or experience
-    $recommendedJobs = Job::where(function ($query) use ($user) {
-        foreach (explode(',', $user->skills) as $skill) {
-            $query->orWhere('requirements', 'LIKE', '%' . trim($skill) . '%');
-        }
-    })->orderBy('created_at', 'desc')->take(6)->get();
+    // Filter based on user input
+    if ($request->filled('title')) {
+        $query->where('title', 'LIKE', '%' . $request->title . '%');
+    }
+
+    if ($request->filled('location')) {
+        $query->where('location', 'LIKE', '%' . $request->location . '%');
+    }
+
+    if ($request->filled('skills')) {
+        $skills = explode(',', $request->skills);
+        $query->where(function ($q) use ($skills) {
+            foreach ($skills as $skill) {
+                $q->orWhere('requirements', 'LIKE', '%' . trim($skill) . '%');
+            }
+        });
+    }
+
+    if ($request->filled('experience')) {
+        $query->where('experience_required', '<=', (int) $request->experience);
+    }
+
+    // Sort by latest
+    $recommendedJobs = $query->orderBy('created_at', 'desc')->take(6)->get();
 
     return view('recommend-me', compact('recommendedJobs'));
 }
+
 
 }

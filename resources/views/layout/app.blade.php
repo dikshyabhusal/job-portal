@@ -5,6 +5,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Font for Job Portal -->
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
     <style>
         .brand-font {
             font-family: 'Pacifico', cursive;
@@ -32,13 +34,13 @@
     <div class="max-w-7xl mx-auto flex justify-between items-center">
         <!-- Logo -->
         <a href="{{ route('dashboard') }}" class="text-3xl font-bold text-blue-700 brand-font">
-            Job <span class="text-orange-600">Portal</span>
+            Rojgar <span class="text-orange-600">Sewa</span>
         </a>
 
         <!-- Navigation Links -->
         <div class="hidden md:flex items-center space-x-6">
             @if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('job_seeker') || Auth::user()->hasRole('employer'))
-                <a href="{{ route('dashboard') }}" class="nav-link">Home</a>
+                {{-- <a href="{{ route('dashboard') }}" class="nav-link">Home</a> --}}
                 <a href="/about-us" class="nav-link">About Us</a>
                 <a href="{{ route('browse.jobs') }}" class="nav-link">Browse Jobs</a>
                 <a href="{{ route('help') }}" class="nav-link">FAQ</a>
@@ -98,7 +100,7 @@
     <footer class="bg-white mt-16 shadow-inner">
         <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div class="text-gray-600 text-sm">
-                &copy; {{ date('Y') }} <span class="text-blue-700 font-semibold brand-font">Job <span class="text-orange-600">Portal</span></span>. All rights reserved.
+                &copy; {{ date('Y') }} <span class="text-blue-700 font-semibold brand-font">Rojgar <span class="text-orange-600">Sewa</span></span>. All rights reserved.
             </div>
     
             <div class="flex space-x-6">
