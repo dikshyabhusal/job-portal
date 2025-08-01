@@ -11,10 +11,54 @@ class BrowseJobController extends Controller
         $jobs = Job::all();
         return view('job.show', compact('jobs'));
     }
-    public function index() {
-        $jobs = Job::all();
-        return view('job.view', compact('jobs'));
+    // public function index() {
+    //     $jobs = Job::all();
+    //     return view('job.view', compact('jobs'));
+    // }
+     public function index(Request $request)
+{
+    $query = Job::query();
+
+    if ($request->filled('title')) {
+        $query->where('title', 'like', '%' . $request->title . '%');
     }
+
+    if ($request->filled('company')) {
+        $query->where('company', 'like', '%' . $request->company . '%');
+    }
+
+    if ($request->filled('location')) {
+        $query->where('location', 'like', '%' . $request->location . '%');
+    }
+
+    if ($request->filled('type')) {
+        $query->where('type', $request->type);
+    }
+
+    if ($request->filled('category')) {
+        $query->where('category', $request->category);
+    }
+
+    if ($request->filled('min_salary')) {
+        $query->where('salary', '>=', $request->min_salary);
+    }
+
+    if ($request->filled('max_salary')) {
+        $query->where('salary', '<=', $request->max_salary);
+    }
+
+    if ($request->filled('sort') && $request->sort === 'latest') {
+        $query->orderBy('created_at', 'desc');
+    } elseif ($request->filled('sort') && $request->sort === 'deadline') {
+        $query->orderBy('deadline', 'asc');
+    }
+
+    // ✅ FIXED: Use paginate instead of get
+    $jobs = $query->paginate(9);
+
+    return view('job.view', compact('jobs'));
+}
+
 
     //creating jobs
     public function createJob()
