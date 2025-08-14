@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Job;
-
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class BrowseJobController extends Controller
@@ -63,7 +63,8 @@ class BrowseJobController extends Controller
     //creating jobs
     public function createJob()
     {
-        return view('job.post_job');
+         $categories = Category::all();
+        return view('job.post_job',compact('categories'));
     }
 
     // Store the posted job in the database
@@ -76,6 +77,7 @@ class BrowseJobController extends Controller
             'location' => 'required|string|max:255',
             'salary' => 'required|numeric',
             'company' => 'required|string|max:255',
+             'category_id' => 'nullable|exists:categories,id',
         ]);
 
         // Create and save the new job

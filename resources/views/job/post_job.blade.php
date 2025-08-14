@@ -39,6 +39,18 @@
                 <label for="company" class="block text-gray-700 text-sm font-medium mb-2">Company</label>
                 <input type="text" class="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" id="company" name="company" required>
             </div>
+            <div class="mb-4">
+                <label for="category_id" class="block font-bold text-gray-700">Job Category</label>
+                <select name="category_id" class="w-full border rounded p-2">
+                    <option value="">Select Category</option>
+                    @foreach($categories as $category)
+                        <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
 
             <button type="submit" class="w-full p-3 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 transition duration-200">Post Job</button>
         </form>

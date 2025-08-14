@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         $permissions = [
             'job_seeker dashboard',
             'employer dashboard',
-            'browse jobs',
+            // 'browse jobs',
             'post job',
             'store job',
             'jobs show',
@@ -33,10 +33,10 @@ class DatabaseSeeder extends Seeder
             'applications store',
             'applications index',
             'applications my',
-            'about',
-            'help',
-            'contact form',
-            'contact submit',
+            // 'about',
+            // 'help',
+            // 'contact form',
+            // 'contact submit',
             'recommend me',
             'admin user roles',
         ];
@@ -47,7 +47,7 @@ class DatabaseSeeder extends Seeder
 
         $job_seekerPermissions = [
             'job_seeker dashboard',
-            'browse jobs',
+            // 'browse jobs',
             // 'post job',
             // 'store job',
             'jobs show',
@@ -61,9 +61,9 @@ class DatabaseSeeder extends Seeder
             'applications index',
             'applications my',
             // 'about',
-            'help',
-            'contact form',
-            'contact submit',
+            // 'help',
+            // 'contact form',
+            // 'contact submit',
             'recommend me',
             'admin user roles',
         
@@ -73,7 +73,7 @@ class DatabaseSeeder extends Seeder
 
         $employerPermissions = [
             'employer dashboard',
-            'browse jobs',
+            // 'browse jobs',
             'post job',
             'store job',
             'jobs show',
@@ -85,10 +85,10 @@ class DatabaseSeeder extends Seeder
             'applications store',
             'applications index',
             'applications my',
-            'about',
-            'help',
-            'contact form',
-            'contact submit',
+            // 'about',
+            // 'help',
+            // 'contact form',
+            // 'contact submit',
             'recommend me',
             'admin user roles',
         ];

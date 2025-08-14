@@ -36,7 +36,11 @@
 
         <!-- Main Content -->
         <main class="flex-1 p-10">
-            <div class="text-2xl font-semibold text-gray-800 mb-6">Welcome, {{ Auth::user()->name }} (Admin)</div>
+            {{-- <div class="text-2xl font-semibold text-gray-800 mb-6">Welcome, {{ Auth::user()->name }} (Admin)</div> --}}
+            <div class="text-2xl font-semibold text-gray-800 mb-6">
+    Welcome, {{ optional(Auth::user())->name ?? 'Guest' }}
+</div>
+
             @yield('content')
         </main>
     </div>

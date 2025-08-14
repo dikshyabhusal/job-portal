@@ -34,16 +34,16 @@
 
     <!-- Navbar -->
     <nav class="bg-white shadow p-4 flex justify-between items-center">
-        <div class="text-2xl font-bold text-blue-700 brand-font">Job Portal</div>
+        <div class="text-2xl font-bold text-blue-700 brand-font">Rojgar Sewa</div>
 
         <div class="flex items-center space-x-6">
             <a href="{{ route('dashboard') }}" class="text-gray-700 hover:text-blue-600 font-medium">Home</a>
             <a href="/about-us" class="text-gray-700 hover:text-blue-600 font-medium">About Us</a>
             <a href="{{ route('browse.jobs') }}" class="text-gray-700 hover:text-blue-600 font-medium">Browse Jobs</a>
-            <a href="{{ route('post.job') }}" class="text-gray-700 hover:text-blue-600 font-medium">Post Job</a>
+            {{-- <a href="{{ route('post.job') }}" class="text-gray-700 hover:text-blue-600 font-medium">Post Job</a>
             <a href="{{ route('jobs.view') }}" class="text-gray-700 hover:text-blue-600 font-medium">Show Job</a>
             <a href="{{ route('applications.index') }}" class="text-gray-700 hover:text-blue-600 font-medium">View All Applications</a>
-            <a href="{{ route('applications.my') }}" class="text-gray-700 hover:text-blue-600 font-medium">My Job Applications</a>
+            <a href="{{ route('applications.my') }}" class="text-gray-700 hover:text-blue-600 font-medium">My Job Applications</a> --}}
 
             <!-- Profile dropdown -->
             <div class="relative">

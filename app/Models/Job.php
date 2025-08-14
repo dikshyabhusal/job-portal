@@ -15,5 +15,10 @@ class Job extends Model
     {
         return $this->hasMany(Application::class);
     }
+    public function category()
+{
+    return $this->belongsTo(Category::class);
+}
+
     
 }

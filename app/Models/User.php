@@ -49,4 +49,9 @@ public $plain_password;
             'password' => 'hashed',
         ];
     }
+    public function cv()
+{
+    return $this->hasOne(Cv::class);
+}
+
 }

@@ -16,23 +16,19 @@
     </div>
 </section>
 
-{{-- Categories --}}
-{{-- <section class="py-16 bg-gray-100">
-    <div class="max-w-6xl mx-auto px-6">
-        <h2 class="text-3xl font-bold mb-10 text-center" data-aos="fade-up">Browse Job Categories</h2>
-        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-            @php
-                $categories = ['IT & Tech', 'Design', 'Marketing', 'Finance', 'Health', 'Education'];
-            @endphp
-            @foreach($categories as $category)
-                <div class="bg-white p-4 rounded shadow hover:shadow-md transition text-center" data-aos="fade-up">
-                    <img src="/images/icons/{{ strtolower(str_replace(' ', '-', $category)) }}.svg" class="w-12 h-12 mx-auto mb-3" />
-                    <span class="text-gray-800 font-medium">{{ $category }}</span>
-                </div>
-            @endforeach
+{{-- 💡 Join Training Section --}}
+<section class="bg-gray-100 py-16">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 px-6 items-center" data-aos="fade-up">
+        <div>
+            <img src="{{ asset('storage/training/training.jpg') }}" alt="Join Training" class="rounded shadow-lg">
+        </div>
+        <div>
+            <h2 class="text-3xl font-bold text-blue-700 mb-4">📘 Want to Join Training Sessions?</h2>
+            <p class="text-gray-700 mb-6">Upskill yourself with certified training classes and gain an edge in the job market. Sessions include Resume Writing, Interview Skills, Tech Courses & more.</p>
+            <a href="{{ route('trainings.list') }}" class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded transition">👉 View Training Sessions</a>
         </div>
     </div>
-</section> --}}
+</section>
 
 {{-- Main Section --}}
 <section class="max-w-6xl mx-auto px-6 py-16 grid grid-cols-1 lg:grid-cols-4 gap-10">
@@ -73,10 +69,6 @@
             <img src="{{ asset('storage/ads/ad1.jpg') }}" class="rounded shadow hover:scale-105 transition" />
             <img src="{{ asset('storage/ads/ad2.jpg') }}" class="rounded shadow hover:scale-105 transition" />
             <img src="{{ asset('storage/ads/ad3.jpg') }}" class="rounded shadow hover:scale-105 transition" />
-            <img src="{{ asset('storage/ads/ad4.jpg') }}" class="rounded shadow hover:scale-105 transition" />
-            <img src="{{ asset('storage/ads/ad5.jpg') }}" class="rounded shadow hover:scale-105 transition" />
-            <img src="{{ asset('storage/ads/ad6.jpg') }}" class="rounded shadow hover:scale-105 transition" />
-            
         </div>
     </aside>
 </section>
@@ -93,8 +85,6 @@
         </div>
     </div>
 </section>
-
-
 
 {{-- Footer --}}
 <footer class="bg-gray-800 text-white py-10">
