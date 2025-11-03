@@ -191,7 +191,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/trainings/payment/{id}', [TrainingController::class, 'processPayment']);
     Route::get('/trainings/token/{id}', [TrainingController::class, 'downloadToken'])->name('trainings.token');
 });
-
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/trainings/create', [TrainingController::class, 'create'])->name('trainings.create');
+    Route::post('/trainings', [TrainingController::class, 'store'])->name('trainings.store');
+});
 
 Route::middleware(['auth'])->group(function(){
     Route::get('/cv/create', [CvController::class,'create'])->name('cv.create');

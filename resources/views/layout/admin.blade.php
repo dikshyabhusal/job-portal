@@ -22,7 +22,7 @@
                 <a href="{{ route('admin.job') }}" class="text-gray-700 hover:text-blue-600 font-medium">Post Job</a>
                 <a href="{{ route('adminjobs.view') }}" class="text-gray-700 hover:text-blue-600 font-medium">Show Jobs</a>
                 <a href="{{ route('admin.index') }}" class="text-gray-700 hover:text-blue-600 font-medium">View All Applications</a>
-                {{-- <a href="{{ route('applications.my') }}" class="text-gray-700 hover:text-blue-600 font-medium">My Job Applications</a> --}}
+                <a href="{{ route('trainings.create') }}" class="text-gray-700 hover:text-blue-600 font-medium">Add Trainings</a>
                 {{-- <a href="{{ route('recommend.me') }}" class="text-gray-700 hover:text-blue-600 font-medium">Recommend Me</a> --}}
                 <a href="{{ route('admin.user.roles') }}" class="text-gray-700 hover:text-blue-600 font-medium">Permissions</a>
                 <a href="{{ route('edit.profile') }}" class="text-gray-700 hover:text-blue-600 font-medium">Edit Profile</a>

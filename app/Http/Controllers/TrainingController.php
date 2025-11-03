@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\TrainingSession;
 use App\Models\TrainingApplication;
+use App\Models\Training;
 use Illuminate\Http\Request;
 use PDF; // for token download
 use Auth;
@@ -71,5 +72,29 @@ class TrainingController extends Controller
         $application = TrainingApplication::with('session')->findOrFail($id);
         $pdf = PDF::loadView('trainings.token', compact('application'));
         return $pdf->download('training-token-' . $application->id . '.pdf');
+    }
+
+
+
+
+      public function create()
+    {
+        return view('trainings.create');
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'title'       => 'required|string|max:255',
+            'description' => 'required|string',
+            'category'    => 'required|string|max:255',
+            'start_date'  => 'required|date',
+            'end_date'    => 'nullable|date|after_or_equal:start_date',
+            'fee'         => 'required|integer|min:0',
+        ]);
+
+        Training::create($validated);
+
+        return redirect()->route('trainings.create')->with('success', 'Training added successfully!');
     }
 }
